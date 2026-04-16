@@ -28,6 +28,9 @@ hs_err_pid*
 .settings
 /bin/
 
+# Added by Mr F
+module-info.java
+
 # intellij files
 .idea
 
@@ -42,3 +45,4 @@ package.bluej
 desktop.ini
 *.swp
 .DS_Store
+src/module-info.java

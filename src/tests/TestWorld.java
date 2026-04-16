@@ -1,13 +1,7 @@
 package tests;
-//---
-//these lines didn't compile because "not accessible", 
-//searching on the internet said that due to more recent jdk, 
-// awt is now in java.desktop, i have to require that? 
-//-Elaine
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-//---
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
