@@ -9,34 +9,53 @@
  */
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.css.Styleable;
 import javafx.event.EventTarget;
 import javafx.scene.image.ImageView;
 
 public abstract class Actor extends ImageView implements Styleable, EventTarget{
-	private World world;
 	
-	public abstract void	act(long now);
+	
+	public abstract void act(long now);
+	
 	public void	addedToWorld(){
-		//w = ;
-	}
-	public double	getHeight(){
-		return getFitHeight();
-	}
-	public <A extends Actor> java.util.List<A>	getIntersectingObjects(java.lang.Class<A> cls){
 		
 	}
+	
+	public double	getHeight(){
+		return getBoundsInParent().getHeight();
+	}
+	public <A extends Actor> java.util.List<A>	getIntersectingObjects(java.lang.Class<A> cls){
+		List<A> a = getWorld().getObjects(cls);
+		List<A> ans = new ArrayList<A>();
+		for (A b:a) {
+			if(b.getBoundsInParent().intersects(this.getBoundsInParent()) && !b.equals(this)) {
+				ans.add(cls.cast(b));
+			}
+		}
+		return ans;
+	}
 	public <A extends Actor> A	getOneIntersectingObject(java.lang.Class<A> cls) {
+		List<A> a = getWorld().getObjects(cls);
+		for (Actor b:a) {
+			if(b.getBoundsInParent().intersects(this.getBoundsInParent()) && !b.equals(this)) {
+				return cls.cast(b);
+			}
+		}
+		return null;
 		
 	}
 	public double	getWidth(){
-		return getFitWidth();
+		return getBoundsInParent().getWidth();
 	}
 	public World getWorld(){
-		return world;
+		return (World) getParent();
 	}
 	public void	move(double dx, double dy) {
-		setX(dx);
-		setY(dy);
+		setX(getX()+dx);
+		setY(getY()+dy);
 	}
 }

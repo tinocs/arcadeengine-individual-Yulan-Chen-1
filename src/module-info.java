@@ -11,4 +11,6 @@ open module P1_Chen_Elaine_ArcadeEngine{
     // You may want to require javafx.web if you use a WebView
     requires javafx.web;
 	requires javafx.base;
+	
+	requires java.desktop;
 }
