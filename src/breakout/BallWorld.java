@@ -29,6 +29,12 @@ public class BallWorld extends World{
 		Paddle p = new Paddle();
 		p.setX(getWidth()/2-p.getWidth()/2); p.setY(getHeight()/2-p.getHeight()/2);
 		add(p);
+		
+		this.setOnMouseMoved(event ->{
+			p.setX(event.getSceneX()-p.getWidth()/2);
+		});
+		
+		
 	}
 
 }

@@ -11,12 +11,14 @@ package breakout;
 
 import engine.Actor;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 
 /**
  * 
  */
 public class Paddle extends Actor{
 	private final Image PADDLE = new Image(getClass().getClassLoader().getResource("breakoutresources/paddle.png").toString());
+	private final int SPEED = 3;
 	
 	public Paddle() {
 		setImage(PADDLE);
@@ -24,6 +26,11 @@ public class Paddle extends Actor{
 
 	@Override
 	public void act(long now) {
-		
+		if (getWorld().isKeyPressed(KeyCode.LEFT)) {
+			move(-SPEED,0);
+		}
+		if (getWorld().isKeyPressed(KeyCode.RIGHT)) {
+			move(SPEED,0);
+		}
 	}
 }
