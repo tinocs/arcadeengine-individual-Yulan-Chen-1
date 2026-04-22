@@ -20,8 +20,8 @@ public class Ball extends Actor{
 	
 	public Ball() {
 		setImage(BALL);
-		dx = 5;
-		dy = 5;
+		dx = 1;
+		dy = 1;
 	}
 
 	@Override
@@ -37,6 +37,24 @@ public class Ball extends Actor{
 		//paddel 
 		if (getOneIntersectingObject(Paddle.class) != null) {
 			dy = -dy;
+		}
+		
+		if (getOneIntersectingObject(Brick.class) != null) {
+			Brick b = getOneIntersectingObject(Brick.class);
+			
+			double ballX = getX()+getWidth()/2;
+			double ballY = getY()+getHeight()/2;
+			
+			if (ballX > b.getX()-b.getWidth() && ballX < b.getX()+b.getWidth()) {
+				dx = -dx;
+			}else if (ballY > b.getY()-b.getHeight() && ballY < b.getY()+b.getHeight()) {
+				dy = -dy;
+			}else {
+				dx = -dx;
+				dy = -dy;
+			}
+			
+			getWorld().remove(b);
 		}
 		
 	}
