@@ -28,11 +28,16 @@ public class Ball extends Actor{
 	public void act(long now) {
 		move(dx,dy);
 		
+		Score s = ((BallWorld)getWorld()).getScore();
+		
 		//use abs to deal with user resizing world issues
 		if (getX()<0)dx = Math.abs(dx);
 		if (getX()+getWidth() > getWorld().getWidth()) dx = -Math.abs(dx);
 		if (getY()<0)dy = Math.abs(dy);
-		if (getY()+getHeight() > getWorld().getHeight())dy = -Math.abs(dy);
+		if (getY()+getHeight() > getWorld().getHeight()) {
+			dy = -Math.abs(dy);
+			s.setScore(s.getScore()-1000);
+		}
 		
 		//paddel 
 		if (getOneIntersectingObject(Paddle.class) != null) {
@@ -46,17 +51,17 @@ public class Ball extends Actor{
 			double ballY = getY()+getHeight()/2;
 			
 			if (ballX > b.getX()-b.getWidth() && ballX < b.getX()+b.getWidth()) {
-				dx = -dx;
-			}else if (ballY > b.getY()-b.getHeight() && ballY < b.getY()+b.getHeight()) {
 				dy = -dy;
+			}else if (ballY > b.getY()-b.getHeight() && ballY < b.getY()+b.getHeight()) {
+				dx = -dx;
 			}else {
 				dx = -dx;
 				dy = -dy;
 			}
 			
 			getWorld().remove(b);
+			s.setScore(s.getScore()+100);
 		}
-		
 	}
 	
 }
